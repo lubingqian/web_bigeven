@@ -48,7 +48,7 @@ $(function () {
             })
     })
     // 监测登录事件
-    $('#form_login').on('submit', function (e) {
+    $('#form_login').submit(function (e) {
         console.log(123);
         e.preventDefault()
         $.ajax({
