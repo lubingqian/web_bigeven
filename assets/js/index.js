@@ -29,6 +29,7 @@ function getUserInfo() {
                 return layui.layer.msg(res.message)
             }
             console.log(res);
+            // console.log(res);
             readerAvatra(res.data)
         },
         //     // 控制用户不输入账号密码时，直接进入后台页面
@@ -50,6 +51,7 @@ function readerAvatra(user) {
     var name = user.nickname || user.username
     // 2.设置欢迎
     $('.welcome').html('&nbsp;&nbsp;' + name)
+    $('.welcome').html('欢迎&nbsp;&nbsp;' + name)
     if (user.user_pic !== null) {
         // 用户上传了头像，渲染上传的头像
         $('.layui-nav-img').attr('src', user.user_pic).show()
