@@ -1,6 +1,7 @@
 $(function () {
     // 获取表单信息
     var form = layui.form
+    var layer = layui.layer
     // 指定用户昵称的校验规则
     form.verify({
         nickname: function (value) {
@@ -29,11 +30,13 @@ $(function () {
 
     //  重置操作
     $('#btnReset').on('click', function (e) {
+        console.log(123);
         // console.log(123);
         // 阻止表单默认提交行为
         e.preventDefault()
         // 重新获取初始化信息
         initUserInfo()
+        // getUserInfo()
 
     })
 
@@ -46,13 +49,12 @@ $(function () {
             data: $(this).serialize(),
             success: function (res) {
                 if (res.status !== 0) {
-                    return layer.msg('提交数据失败')
+                    return layer.msg('修改失败')
                 }
-                // console.log(res);
-                layer.msg('修改成功')
-                // $('.layui-form').reset()
-                window.parent.getUserInfo()
-
+                $('#btnChange').on('click', function () {
+                    layer.msg('修改成功')
+                    window.parent.getUserInfo()
+                })
             }
         })
     })

@@ -16,7 +16,7 @@ $(function () {
 
     })
 })
-
+// 初始化用户信息
 function getUserInfo() {
     $.ajax({
         method: 'GET',
@@ -28,21 +28,20 @@ function getUserInfo() {
             if (res.status !== 0) {
                 return layui.layer.msg(res.message)
             }
-            console.log(res);
             // console.log(res);
             readerAvatra(res.data)
         },
         //     // 控制用户不输入账号密码时，直接进入后台页面
         //     // 这里用 complete 这个回调函数，是应为ajax与接口发生交互是都会调用complete这个函数
-        // complete: function (res) {
-        // console.log(res);
-        //         if (res.responseJSON.status === 1 && res.responseJSON.message === '身份认证失败！') {
-        //             // 1.清空本地存储的token
-        //             localStorage.removeItem('token')
-        //             // 2.强制跳转连接
-        //             location.href = '/login.html'
-        // }
-        // }
+        complete: function (res) {
+            // console.log(res);
+            if (res.responseJSON.status === 1 && res.responseJSON.message === '身份认证失败！') {
+                // 1.清空本地存储的token
+                localStorage.removeItem('token')
+                // 2.强制跳转连接
+                location.href = '/login.html'
+            }
+        }
     })
 }
 // 渲染用户头像
@@ -50,7 +49,6 @@ function readerAvatra(user) {
     // 1.接收name是管理员还是普通用户
     var name = user.nickname || user.username
     // 2.设置欢迎
-    $('.welcome').html('&nbsp;&nbsp;' + name)
     $('.welcome').html('欢迎&nbsp;&nbsp;' + name)
     if (user.user_pic !== null) {
         // 用户上传了头像，渲染上传的头像
